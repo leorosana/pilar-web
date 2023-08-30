@@ -1,44 +1,33 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { appSelector } from "../../redux/appRedux"; 
 import {
     Grid,
     Paper,
-    Box,
-    Card,
-    CardContent,
-    Typography,
-    Button,
-    Link
+    Box
 } from '@mui/material';
 
 const Dashboard = () => {
+    const tasks = useSelector(appSelector.todo);    
+    const completedTasks = tasks.filter(task => task.completed);
+    const pendingTasks = tasks.filter(task => !task.completed); 
+
     return (
-        /*<Grid container spacing={3}>
+            <Grid container spacing={3}>
             <Grid item xs={12}>
                 <Paper sx={{ p: 2 }}>
                     <Box>
-                        Dashboard
+                        Tareas Completadas {'  -  '}   
+                        {completedTasks.length} / {tasks.length}                  
                     </Box>
                 </Paper>
             </Grid>
-        </Grid>*/
-
-        <Grid container spacing={3}>
-            <Grid item xs={5}>
+            <Grid item xs={12}>
                 <Paper sx={{ p: 2 }}>
                     <Box>
-                        <Card className="card">
-                            <CardContent>
-                                <Typography variant="h6">Todo</Typography>
-                                <Button component={Link} to="/todo">Ir a Todo</Button>
-                            </CardContent>
-                        </Card>
-                        <Card className="card">
-                            <CardContent>
-                                <Typography variant="h6">Fetchlist</Typography>
-                                <Button component={Link} to="/fetchlist">Ir a Fetchlist</Button>
-                            </CardContent>
-                        </Card>
-                        </Box>
+                        Tareas Pendientes {'  -  '}   
+                        {pendingTasks.length} / {tasks.length}
+                    </Box>
                 </Paper>
             </Grid>
         </Grid>
